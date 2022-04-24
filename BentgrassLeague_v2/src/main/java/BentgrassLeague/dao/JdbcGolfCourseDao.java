@@ -28,7 +28,7 @@ public class JdbcGolfCourseDao implements GolfCourseDao{
 
 
     @Override
-    public List<GolfCourse> getAllDepartments() {
+    public List<GolfCourse> getAllGolfCourses() {
         return null;
     }
 

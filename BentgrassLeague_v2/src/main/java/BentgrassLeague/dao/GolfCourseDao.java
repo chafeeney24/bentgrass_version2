@@ -8,7 +8,7 @@ public interface GolfCourseDao {
 
     public GolfCourse getGolfCourse(Long golfCourseId);
 
-    public List<GolfCourse> getAllDepartments();
+    public List<GolfCourse> getAllGolfCourses();
 
     public GolfCourse createGolfCourse(GolfCourse newGolfCourse);
 

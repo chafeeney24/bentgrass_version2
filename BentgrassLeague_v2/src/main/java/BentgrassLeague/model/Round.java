@@ -4,15 +4,18 @@ public class Round {
     private Long roundId;
     private Long roundScore;
     private String resultType;
-    private Long golfCourseid;
+    private Long golfCourseId;
+    private long memberId;
 
     public Round() {
     }
 
-    public Round(Long roundId, Long roundScore, String resultType) {
+    public Round(Long roundId, Long roundScore, String resultType, Long golfCourseid, Long memberId) {
         this.roundId = roundId;
         this.roundScore = roundScore;
         this.resultType = resultType;
+        this.golfCourseId = golfCourseid;
+        this.memberId = memberId;
     }
 
     public Long getRoundId() {
@@ -37,5 +40,21 @@ public class Round {
 
     public void setResultType(String resultType) {
         this.resultType = resultType;
+    }
+
+    public Long getGolfCourseId() {
+        return golfCourseId;
+    }
+
+    public void setGolfCourseId(Long golfCourseId) {
+        this.golfCourseId = golfCourseId;
+    }
+
+    public long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(long memberId) {
+        this.memberId = memberId;
     }
 }

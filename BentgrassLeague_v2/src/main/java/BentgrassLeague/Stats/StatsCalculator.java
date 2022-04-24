@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface StatsCalculator {
 
-    public List<Round> memberStats(Member member, List<Round> rounds);
+    public double memberStats(Member member);
 
 }

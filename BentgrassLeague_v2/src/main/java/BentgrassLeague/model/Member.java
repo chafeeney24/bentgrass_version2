@@ -1,22 +1,25 @@
 package BentgrassLeague.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Member {
-    private int member_id;
+    private int memberId;
     private String userName;
 
     public Member() {}
 
     public Member(int member_id, String userName) {
-        this.member_id = member_id;
+        this.memberId = member_id;
         this.userName = userName;
     }
 
-    public int getMember_id() {
-        return member_id;
+    public int getMemberId() {
+        return memberId;
     }
 
-    public void setMember_id(int member_id) {
-        this.member_id = member_id;
+    public void setMemberId(int member_id) {
+        this.memberId = member_id;
     }
 
     public String getUserName() {
@@ -25,5 +28,15 @@ public class Member {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public List<Round> getMemberRounds(List<Round> rounds){
+        List<Round> memberRounds = new ArrayList<>();
+        for (Round round : rounds) {
+            if (round.getMemberId() == memberId){
+               memberRounds.add(round);
+            }
+        }
+        return memberRounds;
     }
 }
