@@ -8,7 +8,9 @@ import java.util.List;
 public class PowerRankings implements StatsCalculator{
 
     @Override
-    public double memberStats(Member member) {
+    public double memberStats(Member member, List<Round> rounds) {
+
+
 
         return 0.0;
     }

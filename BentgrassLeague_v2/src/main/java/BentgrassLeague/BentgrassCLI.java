@@ -1,5 +1,7 @@
 package BentgrassLeague;
 
+import BentgrassLeague.Stats.Handicap;
+import BentgrassLeague.Stats.StatsCalculator;
 import BentgrassLeague.dao.GolfCourseDao;
 import BentgrassLeague.dao.JdbcGolfCourseDao;
 import BentgrassLeague.model.GolfCourse;
@@ -13,7 +15,7 @@ public class BentgrassCLI {
 
     private List<GolfCourse> golfCourseList = new ArrayList<>();
     private final GolfCourseDao golfCourseDao;
-
+    private StatsCalculator stats;
 
     public static void main(String[] args) {
         BasicDataSource dataSource = new BasicDataSource();

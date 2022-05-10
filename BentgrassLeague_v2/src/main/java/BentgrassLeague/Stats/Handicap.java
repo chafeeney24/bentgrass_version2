@@ -12,26 +12,22 @@ import java.util.List;
 public class Handicap implements StatsCalculator{
     GolfCourseDao golfCourseDao;
 
+
     @Override
-    public double memberStats(Member member) {
+    public double memberStats(Member member, List<Round> rounds) {
+        List<Round> memberRounds = member.getMemberRounds(rounds);
         List<Double> handicapDifferentials = new ArrayList<>();
-        handicapDifferentials = member.getMemberRounds();
-        for (Round round : rounds) {
-            if (round.getMemberId() == member.getMemberId()){
+        for (Round round : memberRounds) {
                 GolfCourse golfCourse = golfCourseDao.getGolfCourse(round.getGolfCourseId());
                 handicapDifferentials.add(round.getRoundScore() - golfCourse.getCourseRating());
-            }
         }
 
         double handicapIndex = 0.0;
-        while (handicapDifferentials.size() > 20) {
+        while (handicapDifferentials.size() >= 20) {
             handicapDifferentials.remove(0);
         }
         int length = handicapDifferentials.size();
 
-
-//        int length = this.handicapDifferentials.size();
-//        handicap = this.handicapDifferentials;
         Collections.sort(handicapDifferentials);
 
         if (length < 5) {
@@ -80,4 +76,6 @@ public class Handicap implements StatsCalculator{
         avg = sum / differentialUsed;
         return avg * HANDICAP_MULTIPLIER;
     }
+
+
 }

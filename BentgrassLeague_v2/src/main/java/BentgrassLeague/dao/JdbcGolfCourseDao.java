@@ -1,10 +1,12 @@
 package BentgrassLeague.dao;
 
 import BentgrassLeague.model.GolfCourse;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcGolfCourseDao implements GolfCourseDao{
@@ -16,7 +18,7 @@ public class JdbcGolfCourseDao implements GolfCourseDao{
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public GolfCourse getGolfCourse(Long golfCourseId) {
+    public GolfCourse getGolfCourse(int golfCourseId) {
         GolfCourse golfCourse = null;
         String sql = "SELECT * FROM golf_course WHERE golf_course_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, golfCourseId);
@@ -29,14 +31,21 @@ public class JdbcGolfCourseDao implements GolfCourseDao{
 
     @Override
     public List<GolfCourse> getAllGolfCourses() {
-        return null;
+        List<GolfCourse> golfCourses = new ArrayList<>();
+        String sql = "SELECT * FROM golf_course";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()) {
+            golfCourses.add(mapRowToGolfCourse(results));
+        }
+        return golfCourses;
     }
 
     @Override
     public GolfCourse createGolfCourse(GolfCourse newGolfCourse) {
         String sql = "INSERT INTO golf_course (name, par, yardage, course_rating) " +
                 "VALUES (?, ?, ?, ?) RETURNING golf_course_id;";
-        Long newId = jdbcTemplate.queryForObject(sql, Long.class,
+        int newId = jdbcTemplate.queryForObject(sql, Integer.class,
                 newGolfCourse.getCourseName(), newGolfCourse.getPar(), newGolfCourse.getYardage(),
                 newGolfCourse.getCourseRating());
         return getGolfCourse(newId);
@@ -44,17 +53,29 @@ public class JdbcGolfCourseDao implements GolfCourseDao{
 
     @Override
     public void updateGolfCourse(GolfCourse updatedGolfCourse) {
-
+        String sql = "UPDATE golf_course SET name = ?, par = ?, yardage = ?, course_rating = ?";
+        jdbcTemplate.update(sql, updatedGolfCourse.getCourseName(), updatedGolfCourse.getPar(),
+                updatedGolfCourse.getYardage(), updatedGolfCourse.getGolfCourseId());
     }
 
-    @Override
-    public void addGolfCourseToRound(int roundId, int golfCourseId) {
-
+    public int getGolfCourseIdByName(String golfCourseName){
+        int courseId = 0;
+        try {
+            String sql = "Select golf_course_id FROM golf_course" +
+                    " Where name = ?";
+            courseId = jdbcTemplate.queryForObject(sql, Integer.class, golfCourseName);
+        } catch(DataAccessException e){
+            e.getStackTrace();
+        }
+        return courseId;
     }
 
-    @Override
-    public void deleteGolfCourse(GolfCourse golfCourseToDelete) {
 
+
+    @Override
+    public void deleteGolfCourse(int golfCourseId) {
+        String sql = "DELETE FROM golf_course WHERE golf_course_id = ?";
+        jdbcTemplate.update(sql, golfCourseId);
     }
 
     private GolfCourse mapRowToGolfCourse(SqlRowSet rowSet) {

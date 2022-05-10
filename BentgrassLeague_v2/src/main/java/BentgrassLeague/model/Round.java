@@ -1,60 +1,73 @@
 package BentgrassLeague.model;
 
+import java.time.LocalDateTime;
+
 public class Round {
-    private Long roundId;
-    private Long roundScore;
-    private String resultType;
-    private Long golfCourseId;
-    private long memberId;
+    private int roundId;
+    private int roundScore;
+    private String roundType;
+    private int golfCourseId;
+    private int memberId;
+    private LocalDateTime dateTimePlayed;
+
 
     public Round() {
     }
 
-    public Round(Long roundId, Long roundScore, String resultType, Long golfCourseid, Long memberId) {
+    public Round(int roundId, int roundScore, String resultType, int golfCourseId, int memberId) {
         this.roundId = roundId;
         this.roundScore = roundScore;
-        this.resultType = resultType;
-        this.golfCourseId = golfCourseid;
+        this.roundType = resultType;
+        this.golfCourseId = golfCourseId;
         this.memberId = memberId;
     }
 
-    public Long getRoundId() {
+    public int getRoundId() {
         return roundId;
     }
 
-    public void setRoundId(Long roundId) {
+    public void setRoundId(int roundId) {
         this.roundId = roundId;
     }
 
-    public Long getRoundScore() {
+    public int getRoundScore() {
         return roundScore;
     }
 
-    public void setRoundScore(Long roundScore) {
+    public void setRoundScore(int roundScore) {
         this.roundScore = roundScore;
     }
 
-    public String getResultType() {
-        return resultType;
+    public String getRoundType() {
+        return roundType;
     }
 
-    public void setResultType(String resultType) {
-        this.resultType = resultType;
+    public void setRoundType(String roundType) {
+        this.roundType = roundType;
     }
 
-    public Long getGolfCourseId() {
+    public int getGolfCourseId() {
         return golfCourseId;
     }
 
-    public void setGolfCourseId(Long golfCourseId) {
+    public void setGolfCourseId(int golfCourseId) {
         this.golfCourseId = golfCourseId;
     }
 
-    public long getMemberId() {
+    public int getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(long memberId) {
+    public void setMemberId(int memberId) {
         this.memberId = memberId;
     }
+
+    public LocalDateTime getDateTimePlayed() {
+        return dateTimePlayed;
+    }
+
+    public void setDateTimePlayed(LocalDateTime dateTimePlayed) {
+        this.dateTimePlayed = dateTimePlayed;
+    }
+
 }
